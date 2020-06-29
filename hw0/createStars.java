@@ -1,4 +1,3 @@
-package com.cs61b;
 /*
 HW0:
 Creative Exercise 1a: Drawing a Triangle

@@ -1,4 +1,3 @@
-package com.cs61b;
 /*
 HW0:
 Exercise 2
