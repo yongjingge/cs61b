@@ -58,7 +58,8 @@ public class NBody {
 	draw the image starfield.jpg as the background;
 	*/
 
-	public static String imageToDraw = "./images/starfield.jpg";
+	// should be private
+	private static String imageToDraw = "./images/starfield.jpg";
 
 	public static void main(String[] args) {
 		// Collecting all needed input
@@ -70,7 +71,7 @@ public class NBody {
 		Planet[] allPlanets = readPlanets(filename); //get input using readPlanets(a given file)
 
 		// Drawing the background
-		StdDraw.setScale(radius, -radius);
+		StdDraw.setScale(-radius, radius);
 		StdDraw.clear();
 		StdDraw.picture(0, 0, imageToDraw);
 		StdDraw.show();
@@ -93,7 +94,7 @@ public class NBody {
 
 			// Calculate the NET x and y Forces for each planet, 
 			// storing these in the xForces and yForces arrays respectively.
-			for(int i = 0; i < allPlanets.length - 1; i++) {
+			for(int i = 0; i < allPlanets.length; i++) {
 				xForces[i] = allPlanets[i].calcNetForceExertedByX(allPlanets);
 				yForces[i] = allPlanets[i].calcNetForceExertedByY(allPlanets);
 			}
@@ -102,8 +103,8 @@ public class NBody {
 			// This will update each planet’s position, velocity, and acceleration.
 			// Important: don’t call planets[0].update() until after the entire xForces and yForces arrays are done!
 			// reference: public void update(double time, double xNetF, double yNetF){}
-			for(int i = 0; i < allPlanets.length - 1; i++) {
-				allPlanets[i].update(time, xForces[i], yForces[i]);
+			for(int i = 0; i < allPlanets.length; i++) {
+				allPlanets[i].update(dt, xForces[i], yForces[i]);
 			}
 
 			// Draw the background image.
