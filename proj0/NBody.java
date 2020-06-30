@@ -120,18 +120,16 @@ public class NBody {
 
 			// Pause the animation for 10 milliseconds (see the pause method of StdDraw). 
 			// You may need to tweak this on your computer.
-			// MyNote: 10 is super fast, 100 works better to see the motion.
 			StdDraw.pause(10);
 		}
 
 		StdOut.printf("%d\n", allPlanets.length);
 		StdOut.printf("%.2e\n", radius);
-
 		for (int i = 0; i < allPlanets.length; i++) {
-			StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
-    		allPlanets[i].xxPos, allPlanets[i].yyPos, allPlanets[i].xxVel,
-    		allPlanets[i].yyVel, allPlanets[i].mass, allPlanets[i].imgFileName);
-    	}
+    		StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+                  allPlanets[i].xxPos, allPlanets[i].yyPos, allPlanets[i].xxVel,
+                  allPlanets[i].yyVel, allPlanets[i].mass, allPlanets[i].imgFileName);   
+		}
 	}
 }
 
