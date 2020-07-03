@@ -3,19 +3,21 @@
  */
 public class DebugExercise3 {
     public static int countTurnips(In in) {
-        int totalTurnips = 0;
-        while (!in.isEmpty()) {
+        int sum = 0;
+        while(! in.isEmpty()) {
             String vendor = in.readString();
             String foodType = in.readString();
             double cost = in.readDouble();
             int numAvailable = in.readInt();
             if (foodType.equals("turnip")) {
-                int newTotal = totalTurnips + numAvailable;
-                totalTurnips = newTotal;
+                if (numAvailable < 0) {
+                    continue;
+                }
+                sum += numAvailable;
             }
             in.readLine();
         }
-        return totalTurnips;
+        return sum;
     }
 
     public static void main(String[] args) {

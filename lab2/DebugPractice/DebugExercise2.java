@@ -6,63 +6,79 @@ public class DebugExercise2 {
     /** Returns the max of a and b. Do not step into this function. 
       * This function may have a bug, but if it does, you should find it
       * by stepping over, not into. */
-    public static int max(int a, int b) {
-        int w = (b - a) >> 31;
-        /* If you're stepping into this function, click the
-           step out button because you're not going to learn anything. */
-        int z = ~(b - a) >> 31;
 
-        int max = b & w | a & z;
+    /* problem found in this function first, returns a wrong number */
+    public static int max(int a, int b) { //step3
+        int i = a - b;
+        int j = (i >> 31) & 0x1; // this is to check whether i is negative or non-negative by checking its highest bit, i >> 31 so we can reach the highest bit of number i;
+        int max = a - j * i; //if a < b, j == 1, so a - 1 * (a - b) = b, b is the max one;
         return max;
+
+//        this is the wrong solution for int max() {};
+//        int w = (b - a) >> 31;
+//        /* If you're stepping into this function, click the
+//           step out button because you're not going to learn anything. */
+//        int z = ~(b - a) >> 31;
+//
+//        int max = b & w | a & z;
+
     }
 
 
     /** Returns the sum of a and b. Do not step into this function. 
       * This function may have a bug, but if it does, you should find it
       * by stepping over, not into. */    
-    public static int add(int a, int b) {
-        int x = a, y = b;
-        /* If you're stepping into this function, click the
-           step out button because you're not going to learn anything. */
-        int xor, and, temp;
-        and = x & y;
-        xor = x ^ y;
+    public static int add(int a, int b) { //step5
+        return a + b;
 
-        while (and != 0) {
-            and <<= 1;
-            temp = xor ^ and;
-            and &= xor;
-            xor = temp;
-        }
-        return xor;
+//        int x = a, y = b;
+//        /* If you're stepping into this function, click the
+//           step out button because you're not going to learn anything. */
+//        int xor, and, temp;
+//        and = x & y;
+//        xor = x ^ y;
+//
+//        while (and != 0) {
+//            and <<= 1;
+//            temp = xor ^ and;
+//            and &= xor;
+//            xor = temp;
+//        }
+//        return xor;
     }
 
     /** Returns a new array where entry i is the max of
      * a[i] and b[i]. For example, if a = {1, -10, 3}
      * and b = {0, 20, 5}, this function will return {1, 20, 5}.
      * */
-    public static int[] arrayMax(int[] a, int[] b) {
+
+    /* int[] a = {1, 11, -1, -11};
+        int[] b = {3, -3, 2, -1}; */
+    public static int[] arrayMax(int[] a, int[] b) { //step2
         if (a.length != b.length) {
             System.out.println("ERROR! Arrays don't match");
             return null;
         }
         int[] returnArray = new int[a.length];
         for (int i = 0; i < a.length; i += 1) {
-            int biggerValue = max(a[i], b[i]);
-            returnArray[i] = biggerValue;
+            int biggerValue = max(a[i], b[i]); //step3 using max(){}
+            returnArray[i] = biggerValue; // {3, 11, 2, -1}
         }
 
         return returnArray;
     }
 
     /** Returns the sum of all elements in x. */
-    public static int arraySum(int[] x) {
-        int i = 0;
+    public static int arraySum(int[] x) { //step4
         int sum = 0;
-        while (i < x.length) {
-            sum = sum + add(sum, x[i]);
-            i = i + 1;
+        for(int i = 0; i < x.length; i++) {
+            sum += x[i];
         }
+
+//        while (i < x.length) {
+//            sum = sum + add(sum, x[i]); //step5
+//            i = i + 1;
+//        }
         return sum;
     }
 
@@ -71,15 +87,18 @@ public class DebugExercise2 {
      *  the result should be 57.
      * */
     public static int sumOfElementwiseMaxes(int[] a, int[] b) {
-        int[] maxes = arrayMax(a, b);
-        int sumofMaxes = arraySum(maxes);
+        int[] maxes = arrayMax(a, b); //step1
+        int sumofMaxes = arraySum(maxes); //step4
         return sumofMaxes;
     }
 
 
     public static void main(String[] args) {
-        int[] a = {1, 11, -1, -11};
-        int[] b = {3, -3, 2, -1};
+//        int[] a = {1, 11, -1, -11};
+//        int[] b = {3, -3, 2, -1};
+
+        int[] a = {1, 17, -1, -11};
+        int[] b = {3, -3, 12, -1};
 
         int sumOfElementwiseMaxes = sumOfElementwiseMaxes(a, b);
         System.out.println(sumOfElementwiseMaxes);
