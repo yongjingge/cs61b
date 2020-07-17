@@ -9,25 +9,18 @@ public class LinkedListDeque<T> {
     private ListNode sentinel;
     private int size;
 
-    /* Nested Class ListNode 节点 */
+    /* Nested Class ListNode */
     private class ListNode {
-        public ListNode prev;
-        public T item;
-        public ListNode next;
+        private T item;
+        private ListNode prev;
+        private ListNode next;
 
-        public ListNode(ListNode prev, T item, ListNode next) {
-            this.prev = prev;
+        public ListNode(T item, ListNode prev, ListNode next) {
             this.item = item;
+            this.prev = prev;
             this.next = next;
         }
     }
-
-    /* Constructor of LinkedListDeque */
-//    public LinkedListDeque(T x) {
-//        sentinel = new ListNode(null, null, null);
-//        sentinel.next = new ListNode(sentinel, x, sentinel);
-//        size += 1;
-//    }
 
     /* an empty LinkedListDeque */
     public LinkedListDeque() {
@@ -39,14 +32,15 @@ public class LinkedListDeque<T> {
 
     /* public void addFirst(T item) */
     public void addFirst(T x) {
-        sentinel.next = new ListNode(null,x,sentinel.next);
+        sentinel.next = new ListNode(x, sentinel, sentinel.next);
+        sentinel.next.next.prev = sentinel.next;
         size += 1;
     }
 
     /* public void addLast(T item) */
-    /* add and remove operations must not involve any looping or recursion. A single such operation must take “constant time”, i.e. execution time should not depend on the size of the deque. */
     public void addLast(T x) {
-        sentinel.prev = new ListNode(sentinel.prev, x, sentinel);
+        sentinel.prev = new ListNode(x, sentinel.prev, sentinel);
+        sentinel.prev.prev.next = sentinel.prev;
         size += 1;
     }
 
@@ -63,47 +57,47 @@ public class LinkedListDeque<T> {
     /* public void printDeque() */
     public void printDeque() {
         ListNode current = sentinel.next;
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             System.out.print(current.item + "");
             current = current.next;
         }
         System.out.println();
     }
 
-    /* public T removeFirst():
-    /* Removes and returns the item at the front of the deque. If no such item exists, returns null. */
+    /* public T removeFirst() */
     public T removeFirst() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
-        ListNode first = sentinel.next;
+        T first = sentinel.next.item;
         sentinel.next = sentinel.next.next;
+        sentinel.next.prev = sentinel;
         size -= 1;
-        return first.item;
+        return first;
     }
 
     /* public T removeLast():
     /* Removes and returns the item at the back of the deque. If no such item exists, returns null. */
     public T removeLast() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
-        // last.next = sentinel;
-        // sentinel.prev = last;
-        ListNode last = sentinel.prev;
+
+        T last = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
         size -= 1;
-        return last.item;
+        return last;
     }
 
     /* public T get(int index) :
     /* must use iteration, not recursion. */
     public T get(int index) {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         ListNode p = sentinel;
-        for(int i = 0; i < index; i++) {
+        for (int i = 0; i < index; i++) {
             p = p.next;
         }
         return p.next.item;
@@ -114,7 +108,7 @@ public class LinkedListDeque<T> {
         return getRecursiveHelper(sentinel.next, index);
     }
     private T getRecursiveHelper(ListNode current, int index) {
-        if(index == 0) {
+        if (index == 0) {
             return current.item;
         } else {
             return getRecursiveHelper(current.next, index - 1);

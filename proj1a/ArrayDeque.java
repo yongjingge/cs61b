@@ -23,17 +23,17 @@ public class ArrayDeque<T> {
     }
 
     /* minusOne index */
-    public int minusOne(int index) {
+    private int minusOne(int index) {
         return (index - 1 + items.length) % items.length;
     }
 
     /* plusOne index */
-    public int plusOne(int index) {
+    private int plusOne(int index) {
         return (index + 1) % items.length;
     }
 
     /* resize the deque */
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] newArr = (T[]) new Object[capacity];
         System.arraycopy(items, 0, newArr, 0, size);
         items = newArr;
@@ -42,12 +42,12 @@ public class ArrayDeque<T> {
     }
 
     /* up-size the deque */
-    public void upSize() {
+    private void upSize() {
         resize(size * 2);
     }
 
     /* down-size the deque */
-    public void downSize() {
+    private void downSize() {
         resize(items.length / 2);
     }
 
@@ -89,18 +89,15 @@ public class ArrayDeque<T> {
         return rm;
     }
 
-    /* get the back of the deque */
-    public T getLast() {
-        return items[size - 1];
-    }
 
     /* remove the last item of the deque */
     public T removeLast() {
         if (size == 0) {
             return null;
         }
-        T rm = getLast();
-        items[size - 1] = null;
+        int curLast = minusOne(nextLast);
+        T rm = items[curLast];
+        items[curLast] = null;
         nextLast = minusOne(nextLast);
         size -= 1;
 
