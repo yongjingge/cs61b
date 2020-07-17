@@ -36,7 +36,10 @@ public class ArrayDeque<T> {
     private void resize(int capacity) {
         T[] newArr = (T[]) new Object[capacity];
         int curFirst = plusOne(nextFirst);
-        System.arraycopy(items, curFirst, newArr, 0, size);
+        for(int i = 0; i < size; i++) {
+            newArr[i] = items[curFirst];
+            curFirst = plusOne(curFirst);
+        }
         items = newArr;
         nextFirst = capacity - 1;
         nextLast = size;
