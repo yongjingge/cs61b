@@ -1,32 +1,33 @@
-/* Double-ended queues are sequence containers with dynamic sizes that can be expanded or contracted on both ends (either its front or its back). */
+/**
+ * LinkedListDeque.
+ * implemented in a circular way.
+ *
+ * @author yongjing
+ */
 
-/* LinkedListDeque 双向链表，由节点组成
-* - constructed by ListNode 节点
-* - instantiated by Node (placeholder for different types) 节点的组成元素占位符，可以用数据类型替换比如String */
-
-public class LinkedListDeque<Node> {
-    private ListNode sentinel; //哨兵节点
+public class LinkedListDeque<T> {
+    private ListNode sentinel;
     private int size;
 
     /* Nested Class ListNode 节点 */
     private class ListNode {
         public ListNode prev;
-        public Node item; // 理解Node的占位符作用
+        public T item;
         public ListNode next;
 
-        public ListNode(ListNode prev, Node item, ListNode next) {
+        public ListNode(ListNode prev, T item, ListNode next) {
             this.prev = prev;
-            this.item = item; // 是Node本身 和前后位置
+            this.item = item;
             this.next = next;
         }
     }
 
     /* Constructor of LinkedListDeque */
-    public LinkedListDeque(Node x) {
-        sentinel = new ListNode(null, null, null);
-        sentinel.next = new ListNode(sentinel, x, sentinel);
-        size += 1;
-    }
+//    public LinkedListDeque(T x) {
+//        sentinel = new ListNode(null, null, null);
+//        sentinel.next = new ListNode(sentinel, x, sentinel);
+//        size += 1;
+//    }
 
     /* an empty LinkedListDeque */
     public LinkedListDeque() {
@@ -37,14 +38,14 @@ public class LinkedListDeque<Node> {
     }
 
     /* public void addFirst(T item) */
-    public void addFirst(Node x) {
+    public void addFirst(T x) {
         sentinel.next = new ListNode(null,x,sentinel.next);
         size += 1;
     }
 
     /* public void addLast(T item) */
     /* add and remove operations must not involve any looping or recursion. A single such operation must take “constant time”, i.e. execution time should not depend on the size of the deque. */
-    public void addLast(Node x) {
+    public void addLast(T x) {
         sentinel.prev = new ListNode(sentinel.prev, x, sentinel);
         size += 1;
     }
@@ -71,7 +72,7 @@ public class LinkedListDeque<Node> {
 
     /* public T removeFirst():
     /* Removes and returns the item at the front of the deque. If no such item exists, returns null. */
-    public Node removeFirst() {
+    public T removeFirst() {
         if(isEmpty()) {
             return null;
         }
@@ -83,7 +84,7 @@ public class LinkedListDeque<Node> {
 
     /* public T removeLast():
     /* Removes and returns the item at the back of the deque. If no such item exists, returns null. */
-    public Node removeLast() {
+    public T removeLast() {
         if(isEmpty()) {
             return null;
         }
@@ -97,7 +98,7 @@ public class LinkedListDeque<Node> {
 
     /* public T get(int index) :
     /* must use iteration, not recursion. */
-    public Node get(int index) {
+    public T get(int index) {
         if(isEmpty()) {
             return null;
         }
@@ -109,10 +110,10 @@ public class LinkedListDeque<Node> {
     }
 
     /* public T getRecursive(int index) */
-    public Node getRecursive(int index) {
+    public T getRecursive(int index) {
         return getRecursiveHelper(sentinel.next, index);
     }
-    private Node getRecursiveHelper(ListNode current, int index) {
+    private T getRecursiveHelper(ListNode current, int index) {
         if(index == 0) {
             return current.item;
         } else {

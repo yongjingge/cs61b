@@ -1,41 +1,42 @@
-/* ArrayDequeCircular<Item>
-/* reflecting 'circular' */
+/**
+ * ArrayDeque.
+ * implemented in a circular way.
+ *
+ * @author yongjing
+ */
 
-public class ArrayDeque<Item> {
-    private Item[] items;
+
+public class ArrayDeque<T> {
+    private T[] items;
     private int size;
-    private int nextFirst; //curFirst上一位
-    private int nextLast; //curLast下一位
+    private int nextFirst;
+    private int nextLast;
     private static final int INIT_CAP = 8;
     private static final double MIN_RATIO = 0.25;
 
     /* create an empty deque */
     public ArrayDeque() {
-        items = (Item[]) new Object[INIT_CAP];
+        items = (T[]) new Object[INIT_CAP];
         size = 0;
         nextFirst = 0;
         nextLast = 1;
     }
 
-    /* minus one: 前推一位，更新nextFirst用，确保首位index的前一位是原数组的最后一位，形成环状数组
-    * 如果是size8的数组，0-7位，addFirst之后，现有的nextFirst要被minusOne一次，如果遇上0位，则需要先扩容，minusOne之后要等于扩容后的末尾前一位 */
-    /* index + items.length -1: avoid negative result */
+    /* minusOne index */
     public int minusOne(int index) {
         return (index - 1 + items.length) % items.length;
     }
 
-    /* plus one: 后推一位，更新nextLast用 */
+    /* plusOne index */
     public int plusOne(int index) {
         return (index + 1) % items.length;
     }
 
     /* resize the deque */
     public void resize(int capacity) {
-        Item[] newArr = (Item[]) new Object[capacity];
+        T[] newArr = (T[]) new Object[capacity];
         System.arraycopy(items, 0, newArr, 0, size);
         items = newArr;
-        /* the newArr is starting from index 0, first will be index 0, so nextFirst will be at position capacity-1,         * note the difference between capacity and actual size, capacity might be much larger than the actual size
-         */
         nextFirst = capacity - 1;
         nextLast = size;
     }
@@ -51,8 +52,8 @@ public class ArrayDeque<Item> {
     }
 
     /* add to the front of the deque */
-    public void addFirst(Item x) {
-        if(size == items.length) {
+    public void addFirst(T x) {
+        if (size == items.length) {
             upSize();
         }
         items[nextFirst] = x;
@@ -61,8 +62,8 @@ public class ArrayDeque<Item> {
     }
 
     /* add to the back of the deque */
-    public void addLast(Item x) {
-        if(size == items.length) {
+    public void addLast(T x) {
+        if (size == items.length) {
             upSize();
         }
         items[nextLast] = x;
@@ -71,17 +72,17 @@ public class ArrayDeque<Item> {
     }
 
     /* remove the first item of the deque */
-    public Item removeFirst() {
-        if(size == 0) {
+    public T removeFirst() {
+        if (size == 0) {
             return null;
         }
         int curFirst = plusOne(nextFirst);
-        Item rm = items[curFirst];
+        T rm = items[curFirst];
         items[curFirst] = null;
         nextFirst = plusOne(nextFirst);
         size -= 1;
 
-        if(items.length >= 16 && size < items.length*MIN_RATIO) {
+        if (items.length >= 16 && size < items.length * MIN_RATIO) {
             downSize();
         }
 
@@ -89,21 +90,21 @@ public class ArrayDeque<Item> {
     }
 
     /* get the back of the deque */
-    public Item getLast() {
+    public T getLast() {
         return items[size - 1];
     }
 
     /* remove the last item of the deque */
-    public Item removeLast() {
-        if(size == 0) {
+    public T removeLast() {
+        if (size == 0) {
             return null;
         }
-        Item rm = getLast();
+        T rm = getLast();
         items[size - 1] = null;
         nextLast = minusOne(nextLast);
         size -= 1;
 
-        if(items.length >= 16 && size < items.length*MIN_RATIO) {
+        if (items.length >= 16 && size < items.length * MIN_RATIO) {
             downSize();
         }
 
@@ -111,8 +112,8 @@ public class ArrayDeque<Item> {
     }
 
     /* get */
-    public Item get(int index) {
-        if(index > size) {
+    public T get(int index) {
+        if (index > size) {
             return null;
         }
         return items[index];
@@ -130,11 +131,11 @@ public class ArrayDeque<Item> {
 
     /* print ArrayDeque */
     public void printDeque() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return;
         }
 
-        for(int i = plusOne(nextFirst); i != nextLast; i = plusOne(i)) {
+        for (int i = plusOne(nextFirst); i != nextLast; i = plusOne(i)) {
             System.out.print(items[i] + " ");
         }
         System.out.println();
