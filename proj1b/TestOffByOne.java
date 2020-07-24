@@ -14,7 +14,4 @@ public class TestOffByOne {
         assertTrue(offByOne.equalChars('a', 'a'));
         assertTrue(offByOne.equalChars('%', '&'));
     }
-
-
-    /* Uncomment this class once you've created your CharacterComparator interface and OffByOne class. */
 }
