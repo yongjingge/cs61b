@@ -63,7 +63,8 @@ public class TestArrayRingBuffer {
         for (int i = 0; i < rb.capacity(); i += 1) {
             rb.enqueue(i);
         }
-
+        Integer expected = 0;
+        assertEquals(expected, rb.peek());
     }
 
     @Test
@@ -82,6 +83,7 @@ public class TestArrayRingBuffer {
 //            assertEquals(expected, i);
 //            expected += 1;
 //        }
+
         assertEquals(expected, 5);
     }
 
