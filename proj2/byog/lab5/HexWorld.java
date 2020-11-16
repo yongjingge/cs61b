@@ -96,7 +96,7 @@ public class HexWorld {
         for (int xnew = 0; xnew < width; xnew += 1) {
             int xCoord = p.x + xnew;
             int yCoord = p.y;
-            world[xCoord][yCoord] = TETile.colorVariant(t, 32,32,32,RANDOM);
+            world[xCoord][yCoord] = TETile.colorVariant(t, 32, 32, 32, RANDOM);
         }
     }
 
@@ -184,11 +184,10 @@ public class HexWorld {
      * @return
      */
     private static int yMove (int size, int i) {
-        int res = size;
         if (i > 2) {
-            return res;
+            return size;
         }
-        return -res;
+        return -size;
     }
 
     /**
@@ -224,6 +223,7 @@ public class HexWorld {
             }
         }
         // addHexagon(world, p1, 3, Tileset.FLOWER);
+
         // addHexagon(world, p2, 4, Tileset.TREE);
 
         // addHexaVertical(world, p1, 3, 5);
