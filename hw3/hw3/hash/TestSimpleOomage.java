@@ -1,10 +1,12 @@
 package hw3.hash;
 
 import org.junit.Test;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
-
 
 public class TestSimpleOomage {
 
@@ -30,7 +32,8 @@ public class TestSimpleOomage {
                 for (int b = 0; b <= 255; b += 5) {
                     SimpleOomage oo = new SimpleOomage(r, g, b);
                     int hashcode = oo.hashCode();
-                    assertFalse(hashcodeSet.contains(hashcode)); // hashcode will not be the same unless ...
+                    // hashcode will not be the same unless ...
+                    assertFalse(hashcodeSet.contains(hashcode));
                     hashcodeSet.add(hashcode);
                 }
             }

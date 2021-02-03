@@ -24,13 +24,13 @@ public class SimpleOomage implements Oomage {
      */
     @Override
     public boolean equals(Object o) {
-        if (o == this){
+        if (o == this) {
             return true;
         }
-        if (o == null){
+        if (o == null) {
             return false;
         }
-        if (o.getClass() != this.getClass()){
+        if (o.getClass() != this.getClass()) {
             return false;
         }
         SimpleOomage that = (SimpleOomage) o;
@@ -42,7 +42,8 @@ public class SimpleOomage implements Oomage {
     /**
      * If you’d like to make your hashCodes work well for any number of buckets,
      * you should ensure that it is not always a multiple of any number.
-     * One way to do this is to divide the red, green, and blue values by 5 before computing the hash code.
+     * One way to do this is
+     * to divide the red, green, and blue values by 5 before computing the hash code.
      * @return
      */
     @Override
