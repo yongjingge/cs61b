@@ -1,5 +1,6 @@
 package hw3.hash;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,6 +19,21 @@ public class TestComplexOomage {
         }
     }
 
+    @Test
+    public void testSpreadRandomComplexOomage() {
+
+        double scale = 0.5;
+        int N = 2000;
+        int M = 100;
+
+        HashTableDrawingUtility.setScale(scale);
+        List<ComplexOomage> oomies = new ArrayList<>();
+        for (int i = 0; i < N; i += 1) {
+            oomies.add(ComplexOomage.randomComplexOomage());
+        }
+        HashTableVisualizer.visualizeComplex(oomies, M, scale);
+    }
+
     /* This should pass if your OomageTestUtility.haveNiceHashCodeSpread
        is correct. This is true even though our given ComplexOomage class
        has a flawed hashCode. */
@@ -33,20 +49,32 @@ public class TestComplexOomage {
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(oomages, 10));
     }
 
-    /* TODO: Create a list of Complex Oomages called deadlyList
+    /* a list of Complex Oomages called deadlyList
      * that shows the flaw in the hashCode function.
+     * understands that "any string ends in the same last 32 characters has the same hash code.
      */
-    /*
+
     @Test
     public void testWithDeadlyParams() {
         List<Oomage> deadlyList = new ArrayList<>();
-
-        // Your code here.
-
+        int N = StdRandom.uniform(4, 10);
+        for (int i = 0; i < 100; i += 1) {
+            List<Integer> params = new ArrayList<>(N);
+            // overflow happens after 4th hashing operation
+            for (int j = 0; j < N - 4; j += 1) {
+                params.add(StdRandom.uniform(0, 255));
+            }
+            /* remaining last 4 hashing result will be exactly the same if the last 4 items of a hashing result of any given params
+               which will cause a collision problem */
+            for (int j = N - 4; j < N; j += 1) {
+                params.add(4);
+            }
+            deadlyList.add(new ComplexOomage(params));
+        }
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(deadlyList, 10));
-    } */
+    }
 
-    /** Calls tests for SimpleOomage. */
+    /** Calls tests for ComplexOomage. */
     public static void main(String[] args) {
         jh61b.junit.textui.runClasses(TestComplexOomage.class);
     }

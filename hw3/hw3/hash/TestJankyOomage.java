@@ -1,6 +1,8 @@
 package hw3.hash;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -40,6 +42,7 @@ public class TestJankyOomage {
             oomages.add(JankyOomage.randomJankyOomage());
         }
 
-        assertTrue(OomageTestUtility.haveNiceHashCodeSpread(oomages, 10));
+        // assertTrue(OomageTestUtility.haveNiceHashCodeSpread(oomages, 7));
+        assertFalse(OomageTestUtility.haveNiceHashCodeSpread(oomages, 9));
     }
 }
