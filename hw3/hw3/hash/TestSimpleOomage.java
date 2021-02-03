@@ -1,8 +1,6 @@
 package hw3.hash;
 
 import org.junit.Test;
-
-
 import java.util.*;
 
 import static org.junit.Assert.*;

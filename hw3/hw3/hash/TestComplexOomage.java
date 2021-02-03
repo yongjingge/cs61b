@@ -64,7 +64,8 @@ public class TestComplexOomage {
             for (int j = 0; j < N - 4; j += 1) {
                 params.add(StdRandom.uniform(0, 255));
             }
-            /* remaining last 4 hashing result will be exactly the same if the last 4 items of a hashing result of any given params
+            /* remaining last 4 hashing result will be exactly the same
+               if the last 4 items of a hashing result of any given params
                which will cause a collision problem */
             for (int j = N - 4; j < N; j += 1) {
                 params.add(4);

@@ -1,6 +1,5 @@
 package hw3.hash;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,7 @@ public class OomageTestUtility {
         return true;
     }
 
-    private static Integer hashToBucketNumber (Integer hashcode, int M) {
+    private static Integer hashToBucketNumber(Integer hashcode, int M) {
         return (hashcode & 0x7FFFFFFF) % M;
     }
 }
