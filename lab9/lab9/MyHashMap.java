@@ -22,9 +22,15 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return size / buckets.length;
     }
 
-    /* constructor */
+    /* constructor with an ArrayMap List of default size*/
     public MyHashMap() {
         buckets = new ArrayMap[DEFAULT_SIZE];
+        this.clear();
+    }
+
+    /* constructor with an ArrayMap List of customized size */
+    public MyHashMap (int customSize) {
+        buckets = new ArrayMap[customSize];
         this.clear();
     }
 
@@ -55,8 +61,11 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
+        if (key == null) {
+            return null;
+        }
         int hashedKey = hash(key);
-        return buckets[hashedKey].get(key);
+        return buckets[hashedKey].get(key); //ArrayMap.get(key) to get a specific value
     }
 
     /* Associates the specified value with the specified key in this map. */
@@ -64,7 +73,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     public void put(K key, V value) {
         // resize
         if (loadFactor() > MAX_LF) {
-            resize();
+            resizeHelper(buckets.length * 2);
+            // resize();
         }
 
         int hashedKey = hash(key);
@@ -74,20 +84,32 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         buckets[hashedKey].put(key, value);
     }
 
-    private void resize () {
-        ArrayMap<K, V>[] origins = buckets;
-        buckets = new ArrayMap[buckets.length * 2];
-        for (int i = 0; i < buckets.length; i += 1) {
-            buckets[i] = new ArrayMap<>();
-        }
-        for (ArrayMap<K, V> origin : origins) {
-            for (K eachKey : origin.keySet()) {
-                V eachValue = get(eachKey);
-                int eachHash = hash(eachKey);
-                buckets[eachHash].put(eachKey, eachValue);
+    /* resize helper method with a customized size argument */
+    private void resizeHelper (int newSize) {
+        MyHashMap<K, V> temp = new MyHashMap<>(newSize);
+        for (int i = 0; i < size(); i += 1) {
+            for (K eachKey : buckets[i].keySet()) {
+                temp.put(eachKey, get(eachKey)); // temp.size will be modified at this step
             }
         }
+        this.size = temp.size;
+        this.buckets = temp.buckets;
     }
+
+//    private void resize () {
+//        ArrayMap<K, V>[] origins = buckets;
+//        buckets = new ArrayMap[buckets.length * 2];
+//        for (int i = 0; i < buckets.length; i += 1) {
+//            buckets[i] = new ArrayMap<>();
+//        }
+//        for (ArrayMap<K, V> origin : origins) {
+//            for (K eachKey : origin.keySet()) {
+//                V eachValue = get(eachKey);
+//                int eachHash = hash(eachKey);
+//                buckets[eachHash].put(eachKey, eachValue);
+//            }
+//        }
+//    }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
