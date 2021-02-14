@@ -102,10 +102,11 @@ public class Solver {
     }
 
     /**
-     * Returns the number of total things ever enqueued in MinPQ
+     * Returns the number of total things enqueued to MinPQ
      * @return
      */
-    public int totalEnqueue () {
+    int getEnqueue_count () {
         return enqueue_count;
     }
+
 }
