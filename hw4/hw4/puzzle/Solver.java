@@ -17,7 +17,7 @@ public class Solver {
     * from the initial WorldState to the solution */
     private ArrayDeque<WorldState> path = new ArrayDeque<>();
 
-    int enqueue_count;
+    private int enqueue_count;
 
     private class SearchNode {
         private WorldState state;
@@ -101,4 +101,11 @@ public class Solver {
         return path;
     }
 
+    /**
+     * Returns the number of total things enqueued in the MinPQ.
+     * @return
+     */
+    protected int getEnqueue_count () {
+        return enqueue_count;
+    }
 }

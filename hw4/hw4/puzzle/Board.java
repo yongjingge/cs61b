@@ -79,19 +79,31 @@ public class Board implements WorldState {
     /* Hamming estimate: The number of tiles in the wrong position */
     public int hamming() {
         int estimates = 0;
-        int expected = 1; // starting from 1, and increment by 1
+        // int expected = 1; // starting from 1, and increment by 1 --> sometimes will have false result
+        // try to use a helper method 'shouldBeValue'
         for (int i = 0; i < N; i += 1) {
             for (int j = 0; j < N; j += 1) {
                 if (tileAt(i, j) == BLANK) {
-                    break;
+                    continue;
+                    // break;
                 }
-                if (tileAt(i, j) != expected) {
+                if (tileAt(i, j) != shouldBeValue(i, j)) {
                     estimates += 1;
                 }
-                expected += 1;
+                // expected += 1;
             }
         }
         return estimates;
+    }
+
+    /**
+     * Returns the expected value at position [i, j]
+     * @param i
+     * @param j
+     * @return
+     */
+    private int shouldBeValue (int i, int j) {
+        return i * N + j + 1;
     }
 
     /* Manhattan estimate:
