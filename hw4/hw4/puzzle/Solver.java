@@ -17,6 +17,8 @@ public class Solver {
     * from the initial WorldState to the solution */
     private ArrayDeque<WorldState> path = new ArrayDeque<>();
 
+    private int enqueue_count;
+
     private class SearchNode {
         private WorldState state;
         private int move;
@@ -56,6 +58,7 @@ public class Solver {
         MinPQ<SearchNode> pq = new MinPQ<>(new SearchNodeComparator());
         SearchNode currentNode = new SearchNode(initial, 0, null);
         pq.insert(currentNode);
+        enqueue_count = 1;
 
         while (! pq.isEmpty()) {
             /* node X */
@@ -70,6 +73,7 @@ public class Solver {
                     continue;
                 }
                 pq.insert(new SearchNode(nextState, currentNode.move + 1, currentNode));
+                enqueue_count += 1;
             }
         }
 
@@ -95,5 +99,13 @@ public class Solver {
      */
     public Iterable<WorldState> solution () {
         return path;
+    }
+
+    /**
+     * Returns the number of total things ever enqueued in MinPQ
+     * @return
+     */
+    public int totalEnqueue () {
+        return enqueue_count;
     }
 }

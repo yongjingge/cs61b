@@ -83,7 +83,7 @@ public class Board implements WorldState {
         for (int i = 0; i < N; i += 1) {
             for (int j = 0; j < N; j += 1) {
                 if (tileAt(i, j) == BLANK) {
-                    break;
+                    continue;
                 }
                 if (tileAt(i, j) != expected) {
                     estimates += 1;
@@ -94,7 +94,8 @@ public class Board implements WorldState {
         return estimates;
     }
 
-    /* Manhattan estimate: The sum of the Manhattan distances (sum of the vertical and horizontal distance)
+    /* Manhattan estimate:
+    * The sum of the Manhattan distances (sum of the vertical and horizontal distance)
     * from the tiles to their goal positions. */
     public int manhattan() {
         int res = 0;
