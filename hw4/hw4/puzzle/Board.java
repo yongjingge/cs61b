@@ -83,7 +83,7 @@ public class Board implements WorldState {
         for (int i = 0; i < N; i += 1) {
             for (int j = 0; j < N; j += 1) {
                 if (tileAt(i, j) == BLANK) {
-                    continue;
+                    break;
                 }
                 if (tileAt(i, j) != expected) {
                     estimates += 1;

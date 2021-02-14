@@ -20,6 +20,7 @@ public class EightPuzzleSolver {
         Board initial = new Board(tiles);
         Solver solver = new Solver(initial);
         StdOut.println("Minimum number of moves = " + solver.moves());
+        StdOut.println("Hamming estimates is = " + initial.hamming());
         for (WorldState ws : solver.solution()) {
             StdOut.println(ws);
         }
