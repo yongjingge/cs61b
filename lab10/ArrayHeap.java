@@ -131,20 +131,22 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         int leftChildIndex = leftIndex(index);
         int rightChildIndex = rightIndex(index);
-        while (leftChildIndex <= size) {
-            if (min(index, leftChildIndex) == leftChildIndex) {
-                if (rightChildIndex <= size && min(leftChildIndex, rightChildIndex) == rightChildIndex) {
-                    swap(index, rightChildIndex);
-                    sink(rightChildIndex);
-                } else {
-                    swap(index, leftChildIndex);
-                    sink(leftChildIndex);
-                }
+
+        if (leftChildIndex > size) {
+            return;
+        }
+        if (min(index, leftChildIndex) == leftChildIndex) {
+            if (rightChildIndex <= size && min(leftChildIndex, rightChildIndex) == rightChildIndex) {
+                swap(index, rightChildIndex);
+                sink(rightChildIndex);
             } else {
-                if (rightChildIndex <= size && min(index, rightChildIndex) == rightChildIndex) {
-                    swap(index, rightChildIndex);
-                    sink(rightChildIndex);
-                }
+                swap(index, leftChildIndex);
+                sink(leftChildIndex);
+            }
+        } else {
+            if (rightChildIndex <= size && min(index, rightChildIndex) == rightChildIndex) {
+                swap(index, rightChildIndex);
+                sink(rightChildIndex);
             }
         }
     }
@@ -202,12 +204,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (isEmpty()) {
             return null;
         }
-        Node min = contents[1];
+
+        T minvalue = contents[1].item();
         swap(1, size);
         contents[size] = null;
         size -= 1; // nulling out the dead item
         sink(1);
-        return min.item();
+        return minvalue;
     }
 
     /**
@@ -231,7 +234,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     public void changePriority(T item, double priority) {
         for (int i = 1; i <= size; i += 1) {
             Node currentNode = getNode(i);
-            if (currentNode.item() == item) {
+            if (currentNode.item().equals(item)) {
                 double prevPriority = currentNode.priority();
                 currentNode.myPriority = priority;
                 if (prevPriority < priority) {
