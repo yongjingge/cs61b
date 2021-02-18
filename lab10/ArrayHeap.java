@@ -478,4 +478,40 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
     }
 
+    @Test
+    public void testChangePriority () {
+        ExtrinsicPQ<String> pq = new ArrayHeap<>();
+        pq.insert("c", 3);
+        pq.insert("i", 2); // 9
+        pq.insert("g", 7);
+        pq.insert("d", 9); // 4
+        pq.insert("a", 1);
+        pq.insert("h", 8);
+        pq.insert("e", 5);
+        pq.insert("b", 4); // 2
+        pq.insert("c", 3);
+        pq.insert("d", 4.5);
+
+        /* before changeing priority */
+        int j = 0;
+        String[] beforeChangeExpected = {"a", "i", "c", "c", "b", "d", "e", "g", "h", "d"};
+        System.out.println(pq.toString());
+        while (pq.size() > 1) {
+            assertEquals(beforeChangeExpected[j], pq.removeMin());
+            j += 1;
+        }
+
+        pq.changePriority("i", 9);
+        pq.changePriority("d", 4);
+        pq.changePriority("b", 2);
+
+        /* after changing priority */
+        int i = 0;
+        String[] expected = {"a", "b", "c", "c", "d", "d", "e", "g", "h", "i"};
+        while (pq.size() > 1) {
+            assertEquals(expected[i], pq.removeMin());
+            i += 1;
+        }
+    }
+
 }
