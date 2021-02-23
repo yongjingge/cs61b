@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class CountingSortTester {
 
     /**
@@ -43,14 +45,18 @@ public class CountingSortTester {
 
     @Test
     public void testBetterWithNonNegative() {
+        System.out.println(Arrays.toString(nonNegative));
         int[] sortedNonNegative = CountingSort.betterCountingSort(nonNegative);
         assertIsSorted(sortedNonNegative);
+        System.out.println(Arrays.toString(sortedNonNegative));
     }
 
     @Test
     public void testBetterWithSomeNegative() {
+        System.out.println(Arrays.toString(someNegative));
         int[] sortedSomeNegative = CountingSort.betterCountingSort(someNegative);
         assertIsSorted(sortedSomeNegative);
+        System.out.println(Arrays.toString(sortedSomeNegative));
     }
 
 
