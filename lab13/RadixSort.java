@@ -24,7 +24,7 @@ public class RadixSort {
      *
      * @return String[] the sorted array
      */
-    public static String[] sortLSD(String[] asciis) {
+    public static String[] sort(String[] asciis) {
         if (asciis.length <= 1) {
             return asciis;
         }
@@ -182,13 +182,14 @@ public class RadixSort {
     }
 
     /* ******************************************************************************************************************* */
-    /* test the LSD Radix Sort method */
+    /* test the LSD and MSD Radix Sort method */
     public static void main(String[] args) {
 
         String[] origin = new String[] {"abc", "acb", "bac", "apple", "test", "driver", "academic", "destructive", "communication", "conversion", "conversation"};
         System.out.println("The original array is: " + Arrays.toString(origin));
 
-        String[] sorted1 = sortLSD(origin);
+        // sort method is using LSD Radix Sort
+        String[] sorted1 = sort(origin);
         assertEquals(origin.length, sorted1.length);
         System.out.println("The LSD Radix Sort produces a result: " + Arrays.toString(sorted1));
 
