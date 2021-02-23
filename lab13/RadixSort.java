@@ -1,3 +1,7 @@
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * Class for doing Radix sort
  *
@@ -16,8 +20,22 @@ public class RadixSort {
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        // TODO: Implement LSD Sort
-        return null;
+        if (asciis.length <= 1) {
+            return asciis;
+        }
+        // find how many passes do we need
+        int maxLength = 0;
+        for (String single : asciis) {
+            maxLength = maxLength > single.length() ? maxLength : single.length();
+        }
+
+        // The sorting is non-destructive
+        String[] res = Arrays.copyOf(asciis, asciis.length);
+        // sort from the Least Significant Digit (the rightmost)
+        for (int digit = maxLength - 1; digit >= 0; digit -= 1) {
+            sortHelperLSD(res, digit);
+        }
+        return res;
     }
 
     /**
@@ -28,9 +46,60 @@ public class RadixSort {
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
-        return;
+        // set the R value
+        int R = 256;
+
+        // Counting Sort of the index-th digit of each String in the String[] asciis
+        int[] counts = new int[R + 1];
+        for (String single : asciis) {
+            int singleChar = charNumAtItem(single, index);
+            counts[singleChar] += 1;
+        }
+
+        // get the start position array
+        int[] starts = new int[R + 1];
+        int pos = 0;
+        for (int i = 0; i < starts.length; i += 1) {
+            starts[i] = pos;
+            pos += counts[i];
+        }
+
+        // get the sorted result
+        String[] res = new String[asciis.length];
+        for (int i = 0; i < asciis.length; i += 1) {
+            String single = asciis[i];
+            // get the digit we need in its int form
+            int charNum = charNumAtItem(single, index);
+            // put it into the right position
+            int position = starts[charNum];
+            res[position] = single;
+            starts[charNum] += 1;
+        }
+
+        for (int i = 0; i < asciis.length; i += 1) {
+            asciis[i] = res[i];
+        }
     }
 
+    /* helper method to get the int value of a char at given index of a String */
+    private static int charNumAtItem(String item, int index) {
+        if (index < 0 || index >= item.length()) {
+            return 0;
+        }
+        char ch = item.charAt(index);
+        return (int)ch;
+    }
+
+    /* test the LSD Radix Sort method */
+    public static void main(String[] args) {
+        String[] origin = new String[] {"abc", "acb", "bac", "apple", "test", "driver", "academic", "destructive", "communication", "conversion", "conversation"};
+        String[] sorted = sort(origin);
+        assertEquals(origin.length, sorted.length);
+        for (String single : sorted) {
+            System.out.print(single + " ");
+        }
+
+    }
     /**
      * MSD radix sort helper function that recursively calls itself to achieve the sorted array.
      * Destructive method that changes the passed in array, asciis.
