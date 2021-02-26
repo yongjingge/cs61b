@@ -67,7 +67,7 @@ public class BinaryTrie implements Serializable {
         BitSequence bitSequence = new BitSequence();
         // use bits to walk down the trie
         for (int i = 0; i < querySequence.length(); i += 1) {
-            // output ever time you reaches a leaf
+            // output every time you reaches a leaf
             if (cur.isLeaf()) {
                 break;
             }
@@ -94,7 +94,7 @@ public class BinaryTrie implements Serializable {
 
     /* helper method to build the encoding map */
     private static void buildTable(Map<Character, BitSequence> map, Node x, BitSequence bs) {
-        if (! x.isLeaf()) {
+        if (!x.isLeaf()) {
             buildTable(map, x.left, bs.appended(0));
             buildTable(map, x.right, bs.appended(1));
         } else {
