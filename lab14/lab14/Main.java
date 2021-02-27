@@ -43,8 +43,15 @@ public class Main {
 		 */
 
 		/* Using the SawToothGenerator
-		
+
 		Generator generator = new SawToothGenerator(512);
+		GeneratorAudioVisualizer gav = new GeneratorAudioVisualizer(generator);
+		gav.drawAndPlay(4096, 1000000);
+		 */
+
+		/* Using the AcceleratingSawToothGenerator
+		
+		Generator generator = new AcceleratingSawToothGenerator(200, 1.1);
 		GeneratorAudioVisualizer gav = new GeneratorAudioVisualizer(generator);
 		gav.drawAndPlay(4096, 1000000);
 		 */
