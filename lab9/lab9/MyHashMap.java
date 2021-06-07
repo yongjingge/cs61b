@@ -135,8 +135,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         Set<K> keys = keySet();
         if (keys.contains(key)) {
             int targetHash = hash(key);
-            V targetValue = get(key);
-            return buckets[targetHash].remove(key, targetValue);
+            // V targetValue = get(key);
+            return buckets[targetHash].remove(key, value);
         } else {
             return null;
         }

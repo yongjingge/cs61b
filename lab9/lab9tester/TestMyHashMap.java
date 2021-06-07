@@ -81,6 +81,18 @@ public class TestMyHashMap {
         assertTrue(b.containsKey("hi") && b.get("hi") != null);
     }
 
+    // assume remove work
+    @Test
+    public void sanityRemoveTest() {
+        MyHashMap<String, Integer> b = new MyHashMap<>();
+        b.put("hi", 1);
+        b.put("red", 3);
+        b.remove("red", 2);
+        assertTrue(b.containsKey("red") && b.get("red") == 3);
+        b.remove("hi");
+        assertFalse(b.containsKey("hi"));
+    }
+
     /*
      * Test for general functionality and that the properties of Maps hold.
      */
