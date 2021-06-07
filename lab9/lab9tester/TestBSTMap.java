@@ -1,9 +1,9 @@
 package lab9tester;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
 import lab9.BSTMap;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests by Brendan Hu, Spring 2015, revised for 2018 by Josh Hug

@@ -74,42 +74,24 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         // resize
         if (loadFactor() > MAX_LF) {
             resizeHelper(buckets.length * 2);
-            // resize();
         }
 
         int hashedKey = hash(key);
         if (! buckets[hashedKey].containsKey(key)) {
             size += 1;
         }
-        buckets[hashedKey].put(key, value);
+        buckets[hashedKey].put(key, value); // ArrayMap.put(key, value) method
     }
 
     /* resize helper method with a customized size argument */
     private void resizeHelper (int newSize) {
         MyHashMap<K, V> temp = new MyHashMap<>(newSize);
-        for (int i = 0; i < size(); i += 1) {
-            for (K eachKey : buckets[i].keySet()) {
-                temp.put(eachKey, get(eachKey)); // temp.size will be modified at this step
-            }
+        for (K eachKey : keySet()) { // MyHashMap.keySet() method
+            temp.put(eachKey, get(eachKey)); // MyHashMap.get(key) method, will return a mapped value
         }
         this.size = temp.size;
         this.buckets = temp.buckets;
     }
-
-//    private void resize () {
-//        ArrayMap<K, V>[] origins = buckets;
-//        buckets = new ArrayMap[buckets.length * 2];
-//        for (int i = 0; i < buckets.length; i += 1) {
-//            buckets[i] = new ArrayMap<>();
-//        }
-//        for (ArrayMap<K, V> origin : origins) {
-//            for (K eachKey : origin.keySet()) {
-//                V eachValue = get(eachKey);
-//                int eachHash = hash(eachKey);
-//                buckets[eachHash].put(eachKey, eachValue);
-//            }
-//        }
-//    }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
@@ -124,7 +106,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     public Set<K> keySet() {
         Set<K> res = new HashSet<>();
         for (ArrayMap<K, V> bucket : buckets) {
-            for (K eachKey : bucket.keySet()) {
+            for (K eachKey : bucket.keySet()) { // ArrayMap.keySet() method, will return all its keys
                 res.add(eachKey);
             }
         }
@@ -139,7 +121,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         Set<K> keys = keySet();
         if (keys.contains(key)) {
             int targetHash = hash(key);
-            return buckets[targetHash].remove(key);
+            return buckets[targetHash].remove(key); // ArrayMap.remove(key) method
         } else {
             return null;
         }

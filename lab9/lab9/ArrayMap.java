@@ -14,9 +14,7 @@ public class ArrayMap<K, V> implements Map61B<K, V> {
     int size;
 
     public ArrayMap() {
-        keys = (K[]) new Object[100];
-        values = (V[]) new Object[100];
-        size = 0;
+        this.clear();
     }
 
     /** Returns the index of the given key if it exists,
@@ -69,10 +67,7 @@ public class ArrayMap<K, V> implements Map61B<K, V> {
     @Override
     public V get(K key) {
         int index = keyIndex(key);
-        if (index == -1) {
-            return null;
-        }
-        return values[index];
+        return index == -1 ? null : values[index];
     }
 
     @Override
