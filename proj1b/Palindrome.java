@@ -4,10 +4,16 @@ public class Palindrome {
             return null;
         }
         Deque<Character> deque = new LinkedListDeque<>();
-        for (int i = 0; i < word.length(); i++) {
-            deque.addLast(word.charAt(i));
+//        for (int i = 0; i < word.length(); i++) {
+//            deque.addLast(word.charAt(i));
+//        }
+//        return deque;
+
+        for (int i = word.length() - 1; i >= 0; i -= 1) {
+            deque.addFirst(word.charAt(i));
         }
         return deque;
+
     }
 
     /* Recursion with a private helper method */
