@@ -29,10 +29,12 @@ public class Palindrome {
         }
         Character front = inque.removeFirst();
         Character back = inque.removeLast();
-        if (front == back) {
-            return isPalindromeHelper(inque);
-        }
-        return false;
+        return (front == back) && isPalindromeHelper(inque);
+
+//        if (front == back) {
+//            return isPalindromeHelper(inque);
+//        }
+//        return false;
     }
 
     /* implements CharacterComparator */
