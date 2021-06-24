@@ -50,4 +50,8 @@ public class TestArrayDequeGold {
             }
         }
     }
+
+    public static void main(String[] args) {
+        jh61b.junit.TestRunner.runTests(TestArrayDequeGold.class);
+    }
 }
